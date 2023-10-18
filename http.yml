@@ -1,0 +1,9 @@
+---
+  - name: httpd is there
+    hosts: slave1
+    become: true
+    tasks:
+      - name: ensure httpd is installed
+        apt:
+          name: nginx
+          state: present
