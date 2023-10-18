@@ -2,6 +2,20 @@
   - name: httpd is there
     hosts: slave1
     become: true
+    pre_tasks:
+    - ping:
+      ignore_unreachable: yes
+      register: ping
+
+    - meta: end_host
+      when:
+        - inventory_hostname in _possibly_unreachable_hosts
+        - ping is unreachable
+      vars:
+        _possibly_unreachable_hosts:
+          - ok-if-down
+    
+  
     tasks:
       - name: ensure httpd is installed
         yum:
