@@ -4,6 +4,6 @@
     become: true
     tasks:
       - name: ensure httpd is installed
-        apt:
+        yum:
           name: nginx
           state: present
